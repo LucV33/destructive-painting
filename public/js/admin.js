@@ -38,8 +38,11 @@ function loadOutline() {
 }
 loadOutline();
 
-// Show the join URL
+// Show the join URL and QR code
 joinUrlEl.textContent = `Join at: ${window.location.origin}`;
+document.getElementById('qr-code').src =
+  'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' +
+  encodeURIComponent(window.location.origin);
 
 // --- Screen Management ---
 function showScreen(name) {

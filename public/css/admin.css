@@ -35,7 +35,16 @@ body {
 .join-url {
   font-size: 1.4rem;
   color: #aaa;
-  margin-bottom: 24px;
+  margin-bottom: 12px;
+}
+
+#qr-code {
+  width: 180px;
+  height: 180px;
+  border-radius: 12px;
+  background: #fff;
+  padding: 8px;
+  margin-bottom: 20px;
 }
 
 #teams-grid {
