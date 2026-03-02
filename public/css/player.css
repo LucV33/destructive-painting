@@ -59,6 +59,16 @@ body {
   color: #888;
 }
 
+.credit {
+  position: fixed;
+  bottom: 16px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 0.75rem;
+  color: #666;
+}
+
 #join-btn {
   font-family: 'Nunito', sans-serif;
   font-size: 1.3rem;

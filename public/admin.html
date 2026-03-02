@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Destructive Painting — Admin</title>
+  <title>Class Canvas — Admin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/admin.css">
@@ -11,7 +11,7 @@
 <body>
   <!-- LOBBY -->
   <div id="screen-lobby" class="screen active">
-    <h1>Destructive Painting</h1>
+    <h1>Class Canvas</h1>
     <div id="join-url" class="join-url"></div>
     <div id="teams-grid">
       <div class="team-column team-col-1">
@@ -42,15 +42,11 @@
       <div id="paint-timer" class="timer">60</div>
     </div>
     <div id="canvas-with-labels">
-      <div class="label-row">
-        <span class="q-label q1">Team 1 — Red</span>
-        <span class="q-label q2">Team 2 — Blue</span>
-      </div>
       <div id="admin-canvas-container" class="canvas-wrap">
         <canvas id="admin-paint-canvas"></canvas>
         <canvas id="admin-outline-canvas" class="outline-layer"></canvas>
-      </div>
-      <div class="label-row">
+        <span class="q-label q1">Team 1 — Red</span>
+        <span class="q-label q2">Team 2 — Blue</span>
         <span class="q-label q3">Team 3 — Green</span>
         <span class="q-label q4">Team 4 — Yellow</span>
       </div>
@@ -77,6 +73,7 @@
       <canvas id="destroy-outline-canvas" class="outline-layer"></canvas>
       <div id="splat-overlay"></div>
     </div>
+    <div id="destroy-feed"></div>
   </div>
 
   <!-- RESULTS -->
@@ -93,7 +90,7 @@
         <ol id="leaderboard-list"></ol>
         <div id="stats"></div>
         <div id="results-buttons">
-          <button id="download-btn" class="admin-btn secondary">Download Painting</button>
+          <button id="download-btn" class="admin-btn secondary">Download Destroyed Painting</button>
           <button id="reset-btn" class="admin-btn">New Game</button>
         </div>
       </div>

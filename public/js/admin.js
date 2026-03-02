@@ -257,6 +257,16 @@ socket.on('splat', (splat) => {
   const overlay = document.getElementById('splat-overlay');
   if (!overlay) return;
   renderSplat(overlay, splat);
+
+  // Live feed entry
+  const feed = document.getElementById('destroy-feed');
+  if (feed) {
+    const item = document.createElement('div');
+    item.className = 'feed-item';
+    item.textContent = '\uD83C\uDF45 ' + splat.playerName + ' destroyed the class painting!';
+    feed.prepend(item);
+    while (feed.children.length > 30) feed.lastChild.remove();
+  }
 });
 
 // --- Procedural Splat Generator ---
@@ -428,7 +438,7 @@ function showLeaderboard(players) {
 }
 
 // --- Downloads ---
-function compositeDownload(includeSplats) {
+function compositeDownload() {
   const offscreen = document.createElement('canvas');
   offscreen.width = canvasW;
   offscreen.height = canvasH;
@@ -444,13 +454,37 @@ function compositeDownload(includeSplats) {
     ctx.globalCompositeOperation = 'source-over';
   }
 
+  // Layer 3: tomato splats
+  const overlay = document.getElementById('results-splat-overlay');
+  if (overlay) {
+    overlay.querySelectorAll('.splat-wrap').forEach(wrap => {
+      const splatC = wrap.querySelector('canvas');
+      if (!splatC) return;
+      const xPct = parseFloat(wrap.style.left) / 100;
+      const yPct = parseFloat(wrap.style.top) / 100;
+      const x = xPct * canvasW - splatC.width / 2;
+      const y = yPct * canvasH - splatC.height / 2;
+      const transform = splatC.style.transform;
+      const rotMatch = transform && transform.match(/rotate\(([^)]+)\)/);
+      if (rotMatch) {
+        ctx.save();
+        ctx.translate(x + splatC.width / 2, y + splatC.height / 2);
+        ctx.rotate(parseFloat(rotMatch[1]) * Math.PI / 180);
+        ctx.drawImage(splatC, -splatC.width / 2, -splatC.height / 2);
+        ctx.restore();
+      } else {
+        ctx.drawImage(splatC, x, y);
+      }
+    });
+  }
+
   const link = document.createElement('a');
-  link.download = includeSplats ? 'destructive-painting-destroyed.png' : 'destructive-painting-clean.png';
+  link.download = 'class-canvas-destroyed.png';
   link.href = offscreen.toDataURL('image/png');
   link.click();
 }
 
-downloadBtn.addEventListener('click', () => compositeDownload(true));
+downloadBtn.addEventListener('click', () => compositeDownload());
 
 // --- Reset ---
 resetBtn.addEventListener('click', () => {
@@ -461,6 +495,7 @@ socket.on('game-reset', () => {
   showScreen('lobby');
   document.getElementById('splat-overlay').innerHTML = '';
   document.getElementById('results-splat-overlay').innerHTML = '';
+  document.getElementById('destroy-feed').innerHTML = '';
   for (let t = 1; t <= 4; t++) {
     document.getElementById(`team-${t}-list`).innerHTML = '';
   }
