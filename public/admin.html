@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Destructive Painting — Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+  <!-- LOBBY -->
+  <div id="screen-lobby" class="screen active">
+    <h1>Destructive Painting</h1>
+    <div id="join-url" class="join-url"></div>
+    <div id="teams-grid">
+      <div class="team-column team-col-1">
+        <h3>Team 1 — Red</h3>
+        <ul id="team-1-list"></ul>
+      </div>
+      <div class="team-column team-col-2">
+        <h3>Team 2 — Blue</h3>
+        <ul id="team-2-list"></ul>
+      </div>
+      <div class="team-column team-col-3">
+        <h3>Team 3 — Green</h3>
+        <ul id="team-3-list"></ul>
+      </div>
+      <div class="team-column team-col-4">
+        <h3>Team 4 — Yellow</h3>
+        <ul id="team-4-list"></ul>
+      </div>
+    </div>
+    <button id="start-btn" class="admin-btn" disabled>START GAME</button>
+    <p id="player-count">0 players joined</p>
+  </div>
+
+  <!-- PAINTING -->
+  <div id="screen-painting" class="screen">
+    <div id="paint-header">
+      <h2>Painting Phase</h2>
+      <div id="paint-timer" class="timer">60</div>
+    </div>
+    <div id="canvas-with-labels">
+      <div class="label-row">
+        <span class="q-label q1">Team 1 — Red</span>
+        <span class="q-label q2">Team 2 — Blue</span>
+      </div>
+      <div id="admin-canvas-container" class="canvas-wrap">
+        <canvas id="admin-paint-canvas"></canvas>
+        <canvas id="admin-outline-canvas" class="outline-layer"></canvas>
+      </div>
+      <div class="label-row">
+        <span class="q-label q3">Team 3 — Green</span>
+        <span class="q-label q4">Team 4 — Yellow</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- REVEAL -->
+  <div id="screen-reveal" class="screen">
+    <div id="reveal-canvas-container" class="canvas-wrap">
+      <canvas id="reveal-paint-canvas"></canvas>
+      <canvas id="reveal-outline-canvas" class="outline-layer"></canvas>
+    </div>
+    <button id="destroy-btn" class="admin-btn">START DESTRUCTION</button>
+  </div>
+
+  <!-- DESTRUCTION -->
+  <div id="screen-destruction" class="screen">
+    <div id="destroy-header">
+      <h2>Destruction!</h2>
+      <div id="destroy-timer" class="timer">60</div>
+    </div>
+    <div id="destroy-canvas-container" class="canvas-wrap">
+      <canvas id="destroy-paint-canvas"></canvas>
+      <canvas id="destroy-outline-canvas" class="outline-layer"></canvas>
+      <div id="splat-overlay"></div>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="screen-results" class="screen">
+    <h2>Results</h2>
+    <div id="results-content">
+      <div id="results-canvas-container" class="canvas-wrap">
+        <canvas id="results-paint-canvas"></canvas>
+        <canvas id="results-outline-canvas" class="outline-layer"></canvas>
+        <div id="results-splat-overlay"></div>
+      </div>
+      <div id="leaderboard">
+        <h3>Most Destructive Players</h3>
+        <ol id="leaderboard-list"></ol>
+        <div id="stats"></div>
+        <div id="results-buttons">
+          <button id="download-btn" class="admin-btn secondary">Download Painting</button>
+          <button id="reset-btn" class="admin-btn">New Game</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/admin.js"></script>
+</body>
+</html>

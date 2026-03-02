@@ -1,0 +1,319 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: #1a1a2e;
+  color: #fff;
+  min-height: 100vh;
+  overflow: hidden;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.screen {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.screen.active {
+  display: flex;
+}
+
+/* Join Screen */
+#screen-join h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.join-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 320px;
+}
+
+#name-input {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.2rem;
+  padding: 16px 20px;
+  border: none;
+  border-radius: 12px;
+  background: #16213e;
+  color: #fff;
+  text-align: center;
+  outline: none;
+}
+
+#name-input::placeholder {
+  color: #888;
+}
+
+#join-btn {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 800;
+  padding: 16px;
+  border: none;
+  border-radius: 12px;
+  background: #e94560;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+#join-btn:active {
+  transform: scale(0.95);
+}
+
+/* Waiting Screen */
+.team-badge {
+  font-size: 1.8rem;
+  font-weight: 800;
+  padding: 16px 40px;
+  border-radius: 16px;
+  margin: 16px 0;
+}
+
+.team-badge.team-1 { background: #E53935; }
+.team-badge.team-2 { background: #1E88E5; }
+.team-badge.team-3 { background: #43A047; }
+.team-badge.team-4 { background: #F9A825; color: #333; }
+
+.waiting-text {
+  font-size: 1.1rem;
+  color: #aaa;
+  margin-top: 12px;
+}
+
+/* Timer */
+.timer {
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: rgba(0,0,0,0.4);
+  padding: 8px 24px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+/* Painting Screen */
+#screen-painting {
+  padding-top: 10px;
+  padding-bottom: 0;
+}
+
+#canvas-container {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  touch-action: none;
+}
+
+#paint-canvas {
+  background: #fff;
+  border-radius: 8px;
+  touch-action: none;
+}
+
+.outline-layer {
+  position: absolute;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  border-radius: 8px;
+}
+
+#toolbar {
+  width: 100%;
+  padding: 12px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+#color-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.color-btn {
+  width: 44px;
+  height: 44px;
+  border: 3px solid transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+.color-btn.active {
+  border-color: #fff;
+  transform: scale(1.15);
+}
+
+#size-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.size-btn {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 800;
+  width: 44px;
+  height: 36px;
+  border: 2px solid #555;
+  border-radius: 8px;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+.size-btn.active {
+  border-color: #fff;
+  background: rgba(255,255,255,0.15);
+}
+
+/* Destruction Screen */
+#screen-destruction {
+  gap: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.destroy-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #e94560;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+#tomato-btn-wrap {
+  position: relative;
+  width: 180px;
+  height: 220px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 10px;
+}
+
+#tomato-btn {
+  font-size: 6rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.08s;
+  z-index: 2;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+  -webkit-tap-highlight-color: transparent;
+}
+
+#tomato-btn:active {
+  transform: scale(0.8);
+}
+
+#tomato-btn.disabled {
+  filter: grayscale(0.8) drop-shadow(0 2px 6px rgba(0,0,0,0.2));
+  pointer-events: none;
+}
+
+/* Throw feedback — red flash ring */
+#tomato-btn.thrown {
+  animation: throwPulse 0.3s ease-out;
+}
+
+@keyframes throwPulse {
+  0% { transform: scale(0.8); }
+  40% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+/* Cooldown ring wraps around the button */
+#cooldown-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 180px;
+  height: 180px;
+  transform: rotate(-90deg);
+  z-index: 1;
+}
+
+#cooldown-svg circle {
+  fill: none;
+  stroke: #e94560;
+  stroke-width: 4;
+  stroke-dasharray: 502; /* 2 * PI * 80 */
+  stroke-dashoffset: 0;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s linear;
+}
+
+#cooldown-timer {
+  position: absolute;
+  bottom: 0;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #e94560;
+}
+
+#cooldown-timer.hidden {
+  display: none;
+}
+
+#throw-info {
+  font-size: 1.2rem;
+  color: #aaa;
+}
+
+#throw-info #throw-count {
+  font-weight: 800;
+  color: #fff;
+  font-size: 2rem;
+}
+
+/* Mini splat burst effect on the destruction screen */
+.throw-splat {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200,30,30,0.6) 0%, rgba(180,20,20,0.3) 50%, transparent 70%);
+  pointer-events: none;
+  animation: throwSplatAnim 0.5s ease-out forwards;
+}
+
+@keyframes throwSplatAnim {
+  0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
+}
+
+/* Results Screen */
+#screen-results {
+  gap: 16px;
+}
+
+#screen-results h2 {
+  font-size: 2rem;
+}
+
+.thanks {
+  color: #aaa;
+  margin-top: 20px;
+}

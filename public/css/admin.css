@@ -1,0 +1,311 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: #0f0f23;
+  color: #fff;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.screen {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 30px;
+}
+
+.screen.active {
+  display: flex;
+}
+
+/* Lobby */
+#screen-lobby h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.join-url {
+  font-size: 1.4rem;
+  color: #aaa;
+  margin-bottom: 24px;
+}
+
+#teams-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  width: 100%;
+  max-width: 1000px;
+  margin-bottom: 30px;
+}
+
+.team-column {
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+  padding: 16px;
+  min-height: 150px;
+}
+
+.team-column h3 {
+  font-size: 1rem;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid rgba(255,255,255,0.1);
+}
+
+.team-col-1 h3 { color: #E53935; border-color: #E53935; }
+.team-col-2 h3 { color: #42A5F5; border-color: #42A5F5; }
+.team-col-3 h3 { color: #66BB6A; border-color: #66BB6A; }
+.team-col-4 h3 { color: #FDD835; border-color: #FDD835; }
+
+.team-column ul {
+  list-style: none;
+}
+
+.player-entry {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 0;
+}
+
+.player-entry span {
+  flex: 1;
+  font-size: 1.1rem;
+}
+
+.move-btn {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: #aaa;
+  font-size: 0.7rem;
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+
+.move-btn:hover {
+  background: rgba(255,255,255,0.25);
+  color: #fff;
+}
+
+#player-count {
+  color: #888;
+  margin-top: 10px;
+}
+
+/* Admin Buttons */
+.admin-btn {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 800;
+  padding: 16px 48px;
+  border: none;
+  border-radius: 12px;
+  background: #e94560;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.1s, opacity 0.2s;
+}
+
+.admin-btn:hover {
+  transform: scale(1.03);
+}
+
+.admin-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.admin-btn.secondary {
+  background: #16213e;
+}
+
+#destroy-btn {
+  margin-top: 40px;
+}
+
+/* Timer */
+.timer {
+  font-size: 3rem;
+  font-weight: 800;
+  background: rgba(233, 69, 96, 0.2);
+  color: #e94560;
+  padding: 8px 32px;
+  border-radius: 12px;
+}
+
+/* Painting Screen */
+#paint-header, #destroy-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 16px;
+}
+
+/* Stacked canvas wrapper */
+.canvas-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.canvas-wrap canvas {
+  display: block;
+  border-radius: 8px;
+}
+
+/* Paint canvas sits at the bottom of the stack */
+.canvas-wrap > canvas:first-child {
+  background: #fff;
+}
+
+/* Outline layer sits on top with multiply blend so white = transparent, black lines show */
+.outline-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}
+
+/* Canvas with external team labels */
+#canvas-with-labels {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.label-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 4px;
+}
+
+.label-row:first-child {
+  margin-bottom: 6px;
+}
+
+.label-row:last-child {
+  margin-top: 6px;
+}
+
+.q-label {
+  font-size: 15px;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 6px;
+}
+
+.q-label.q1 { color: #E53935; background: rgba(229,57,53,0.15); }
+.q-label.q2 { color: #42A5F5; background: rgba(66,165,245,0.15); }
+.q-label.q3 { color: #66BB6A; background: rgba(102,187,106,0.15); }
+.q-label.q4 { color: #FDD835; background: rgba(253,216,53,0.15); }
+
+/* Splat overlay — uses canvas for procedural splats */
+#splat-overlay, #results-splat-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Individual splat container for animation */
+.splat-wrap {
+  position: absolute;
+  transform: translate(-50%, -50%) scale(0);
+  animation: splatImpact 0.35s cubic-bezier(0.22, 1.2, 0.36, 1) forwards;
+}
+
+.splat-wrap canvas {
+  display: block;
+}
+
+/* Flying tomato emoji before impact */
+.tomato-fly {
+  position: absolute;
+  font-size: 2.5rem;
+  z-index: 10;
+  pointer-events: none;
+  animation: tomatoFly 0.25s ease-in forwards;
+}
+
+@keyframes tomatoFly {
+  0% { transform: translate(-50%, -300%) scale(1.5) rotate(0deg); opacity: 1; }
+  80% { transform: translate(-50%, -50%) scale(1) rotate(180deg); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(0.3) rotate(220deg); opacity: 0; }
+}
+
+@keyframes splatImpact {
+  0% { transform: translate(-50%, -50%) scale(0); }
+  50% { transform: translate(-50%, -50%) scale(1.15); }
+  100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+/* Results */
+#results-content {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+  margin: 20px 0;
+}
+
+#leaderboard {
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+  padding: 20px;
+  min-width: 280px;
+}
+
+#leaderboard h3 {
+  margin-bottom: 12px;
+  color: #e94560;
+}
+
+#leaderboard ol {
+  padding-left: 24px;
+  max-height: 40vh;
+  overflow-y: auto;
+}
+
+#leaderboard li {
+  padding: 4px 0;
+  font-size: 1.1rem;
+}
+
+#stats {
+  margin-top: 16px;
+  color: #aaa;
+  font-size: 0.95rem;
+}
+
+#results-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+#results-buttons .admin-btn {
+  width: 100%;
+  padding: 12px 24px;
+  font-size: 1.1rem;
+}

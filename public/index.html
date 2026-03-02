@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Destructive Painting</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/player.css">
+</head>
+<body>
+  <!-- LOBBY: Join Screen -->
+  <div id="screen-join" class="screen active">
+    <h1>Destructive Painting</h1>
+    <div class="join-form">
+      <input type="text" id="name-input" placeholder="Enter your name" maxlength="20" autocomplete="off">
+      <button id="join-btn">Join Game</button>
+    </div>
+  </div>
+
+  <!-- LOBBY: Waiting Screen (after joining) -->
+  <div id="screen-waiting" class="screen">
+    <h2>You're on</h2>
+    <div id="team-badge" class="team-badge">Team ?</div>
+    <p class="waiting-text">Waiting for the game to start...</p>
+  </div>
+
+  <!-- PAINTING: Drawing Screen -->
+  <div id="screen-painting" class="screen">
+    <div id="paint-timer" class="timer">60</div>
+    <div id="canvas-container">
+      <canvas id="paint-canvas"></canvas>
+      <canvas id="outline-canvas" class="outline-layer"></canvas>
+    </div>
+    <div id="toolbar">
+      <div id="color-buttons">
+        <button class="color-btn active" data-color="#E53935" style="background:#E53935"></button>
+        <button class="color-btn" data-color="#1E88E5" style="background:#1E88E5"></button>
+        <button class="color-btn" data-color="#43A047" style="background:#43A047"></button>
+        <button class="color-btn" data-color="#FDD835" style="background:#FDD835"></button>
+        <button class="color-btn" data-color="#212121" style="background:#212121"></button>
+        <button class="color-btn" data-color="#FFFFFF" style="background:#FFFFFF; border:2px solid #ccc"></button>
+      </div>
+      <div id="size-buttons">
+        <button class="size-btn" data-size="4">S</button>
+        <button class="size-btn active" data-size="10">M</button>
+        <button class="size-btn" data-size="22">L</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- REVEAL: Look up screen -->
+  <div id="screen-reveal" class="screen">
+    <h2>Brushes down!</h2>
+    <p class="waiting-text">Look up at the screen!</p>
+  </div>
+
+  <!-- DESTRUCTION: Tomato throwing -->
+  <div id="screen-destruction" class="screen">
+    <div id="destroy-timer" class="timer">60</div>
+    <p class="destroy-title">Destroy the painting!</p>
+    <div id="tomato-btn-wrap">
+      <button id="tomato-btn">&#x1F345;</button>
+      <svg id="cooldown-svg" viewBox="0 0 180 180">
+        <circle cx="90" cy="90" r="80" />
+      </svg>
+      <span id="cooldown-timer" class="hidden">5</span>
+    </div>
+    <div id="throw-info">
+      <span id="throw-count">0</span> tomatoes thrown
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="screen-results" class="screen">
+    <h2>Destruction Complete!</h2>
+    <p>You threw <span id="final-throw-count">0</span> tomatoes</p>
+    <p class="thanks">Thanks for playing!</p>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/player.js"></script>
+</body>
+</html>
